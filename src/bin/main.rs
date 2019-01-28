@@ -1,13 +1,13 @@
 use hello::ThreadPool;
 use std::fs;
 use std::io::prelude::*;
-use std::net::TcpListener;
-use std::net::TcpStream;
+use std::net::{IpAddr, Ipv6Addr, SocketAddr, TcpListener, TcpStream};
 use std::thread;
 use std::time::Duration;
 
 fn main() {
-    let listener = TcpListener::bind("127.0.0.1:7878").unwrap();
+    let socket = SocketAddr::new(IpAddr::V6(Ipv6Addr::new(0, 0, 0, 0, 0, 0, 0, 1)), 7878);
+    let listener = TcpListener::bind(socket).unwrap();
     let pool = ThreadPool::new(4);
 
     for stream in listener.incoming() {
